@@ -86,3 +86,9 @@ python main.py
 🤝 Contributing
 
 Contributions are heavily encouraged! If you want to integrate new exchange sources, optimize SQLite write speeds, or implement interactive charts (Matplotlib/Plotly integration), feel free to fork the repository, open an issue, or submit a Pull Request.
+
+## 📄 License
+
+This project is licensed under the **GNU General Public License v3.0 (GPLv3)** — see the [LICENSE](LICENSE) file for details. 
+
+This guarantees that the software remains free and open-source forever. Anyone modifying or distributing this software or its derivative works is strictly required to share their source code under the same GPLv3 license.
