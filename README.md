@@ -88,6 +88,18 @@ python main.py
 
 Contributions are heavily encouraged! If you want to integrate new exchange sources, optimize SQLite write speeds, or implement interactive charts (Matplotlib/Plotly integration), feel free to fork the repository, open an issue, or submit a Pull Request.
 
+---
+
+## 🗺️ Roadmap (Upcoming Features)
+
+We are actively working on expanding the tool's capabilities. Here is what's coming next (Pull Requests are highly appreciated!):
+
+* [ ] **Asyncio Refactoring:** Transitioning the network layer from `requests` to `aiohttp` / `asyncio`. The goal is to drastically speed up the "Update Data" process for multi-ticker/timeframe setups while strictly managing API rate limits via semaphores.
+* [ ] **On-the-fly Indicators Export:** Adding the ability to calculate and attach technical indicators (RSI, MACD, Bollinger Bands) and order flow metrics (like **CVD** - Cumulative Volume Delta) dynamically during the CSV export process. This keeps the SQLite database lightweight while providing ML-ready datasets.
+* [ ] **Data Integrity Checks:** Automated validation tools to find and patch historical gaps inside the local database.
+
+---
+
 ## 📄 License
 
 This project is licensed under the **GNU General Public License v3.0 (GPLv3)** — see the [LICENSE](LICENSE) file for details. 
