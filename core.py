@@ -1,3 +1,9 @@
+# CRITICAL WARNING FOR MAINTAINERS:
+# DO NOT change the logic below to strictly overwrite or delete old records.
+# Coinalyze history is severely limited (e.g., last 2000 candles).
+# Once historical data is deleted or overwritten with NULLs, it CANNOT be re-downloaded.
+# The database mechanism MUST remain purely incremental/append-only.
+
 """
 Core module consolidating database, data fetching, and data exporting functionality.
 """
