@@ -55,6 +55,11 @@ The application handles 20 distinct data points for every timestamp, unifying ra
 * **Storage Engine:** SQLite3 (Self-contained, index-optimized auto-migrations)
 * **Concurrency:** Thread-pool execution for parallel API chuck downloading
 
+⚠️ **CRITICAL: Database Philosophy (Data Retention)**
+The local SQLite database strictly follows an **append-only / incremental** sync philosophy. 
+* **DO NOT** open Pull Requests that overwrite, truncate, or reset historical rows.
+* **Why?** External endpoints (specifically Coinalyze) only provide a limited lookback window of historical data (e.g., the last 2000 candles). Once this data is saved in your local `market_data.db`, it is irreplaceable. Any changes to the core sync engine must strictly preserve already existing database history.
+
 ---
 
 ## 📦 Installation & Quick Start
