@@ -79,9 +79,10 @@ API_KEY_COINALYZE=your_api_key_here
 4. Run the Tool
 ```
 python main.py
+
 ```
 
-    📌 Note on Database Location: On the first execution, the tool automatically sets up and optimizes market_data.db directly inside the root folder.
+📌 Note on Database Location: On the first execution, the tool automatically sets up and optimizes market_data.db directly inside the root folder.
 
 🤝 Contributing
 
