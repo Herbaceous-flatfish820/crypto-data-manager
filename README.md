@@ -1,2 +1,88 @@
-# crypto-data-manager
-A lightweight Python UI tool to download, store, and export crypto historical data from Binance &amp; Coinalyze into SQLite. Features smart incremental updates and customizable CSV exporting—select only the metrics you need (like time and volume) instead of dumping massive tables. Perfect for building your local data warehouse.
+# Crypto Data Management Tool
+
+An advanced, desktop-based local data warehouse designed to **download, store, manage, and flexibly export** comprehensive historical cryptocurrency market data. Built with Python and Tkinter, it provides a clean, zero-configuration graphical interface to aggregate professional-grade metrics from **Binance** and **Coinalyze** into an offline SQLite database.
+
+---
+
+## 🔥 Key Features
+
+* **Multi-Source Aggregation:** Pulls high-fidelity data directly from Binance FAPI (OHLCV, Mark/Index prices, Funding rates), Binance Vision daily archives (Long/Short ratios, Taker volume ratios), and Coinalyze (Open Interest & Liquidations).
+* **Smart Incremental Syncing:** Automatically detects data history gaps or empty columns within your local DB. It strictly downloads *only the missing intervals*, saving bandwidth and respecting API rate limits.
+* **Granular CSV Exporting:** Allows you to filter data by ticker, timeframe, and specific date ranges. Instead of saving cluttered multi-gigabyte files, you can check/uncheck exactly which metrics you need.
+* **Built-in Interactive Data Viewer:** Inspect millions of database rows inside a responsive tabular interface directly within the app before exporting.
+
+---
+
+## 📸 Interface Preview
+
+### 1. Main Control Panel & Database Summary
+Manage your parameters, review exactly what ranges are already saved in your local database, and initiate incremental data updates in one click.
+
+![Main Control Panel](path_to_image/main_window.png)
+
+### 2. High-Density Data Viewer
+Inspect every single downloaded candle along with all 20+ derivative trading metrics simultaneously.
+
+![Data Viewer Window](path_to_image/data_viewer.png)
+
+### 3. Customized Data Export Window
+Tailor your dataset exports by selecting precise asset ticker pairs, custom date ranges, and filtering out columns you don't need.
+
+![Export Window](path_to_image/export_window.png)
+
+---
+
+## 📊 Supported Metrics & Database Schema
+
+The application handles 20 distinct data points for every timestamp, unifying raw price action with order book and derivative market intelligence:
+
+| Category | Column Name | Description | Source |
+| :--- | :--- | :--- | :--- |
+| **Price Action** | `time`, `price_open`, `price_close`, `price_high`, `price_low` | Standard OHLC candlestick data | Binance |
+| **Volume** | `volume`, `taker_buy_base` | Total traded volume and underlying taker buy asset volume | Binance |
+| **Market Anchors** | `mark_price`, `index_price` | Fair mark price and underlying spot index asset price | Binance |
+| **Funding** | `funding_rate` | Historical funding rate values per interval | Binance |
+| **Coinalyze Metrics** | `oi_open_coin`, `oi_high_coin`, `oi_low_coin`, `oi_close_coin` | Open Interest actions calculated in native coin values | Coinalyze |
+| **Liquidations** | `liq_long_coin`, `liq_short_coin` | Estimated long and short positions liquidation volume | Coinalyze |
+| **Sentiment Ratios** | `oi_binance`, `ls_ratio`, `top_ls_ratio`, `taker_vol_ratio` | Binance-specific Open Interest, Long/Short ratios (global & top traders), and Taker volume buy/sell dynamics | Binance Vision |
+
+---
+
+## 🛠 Tech Stack
+
+* **GUI Architecture:** Python Tkinter / Advanced TTK (`clam` modern styling)
+* **Data Processing & Merging:** Pandas (via optimized `merge_asof` timeline alignment)
+* **Storage Engine:** SQLite3 (Self-contained, index-optimized auto-migrations)
+* **Concurrency:** Thread-pool execution for parallel API chuck downloading
+
+---
+
+## 📦 Installation & Quick Start
+
+### 1. Clone the repository
+
+```bash
+git clone [https://github.com/YOUR_USERNAME/crypto-data-manager.git](https://github.com/YOUR_USERNAME/crypto-data-manager.git)
+cd crypto-data-manager
+```
+
+2. Install required packages
+```Bash
+pip install -r requirements.txt
+```
+3. Environment Setup (Optional)
+
+Rename .env.example to .env and fill in your Coinalyze API key to unlock Open Interest and Liquidations tracking:
+```
+API_KEY_COINALYZE=your_api_key_here
+```
+4. Run the Tool
+```
+python main.py
+```
+
+    📌 Note on Database Location: On the first execution, the tool automatically sets up and optimizes market_data.db directly inside the root folder.
+
+🤝 Contributing
+
+Contributions are heavily encouraged! If you want to integrate new exchange sources, optimize SQLite write speeds, or implement interactive charts (Matplotlib/Plotly integration), feel free to fork the repository, open an issue, or submit a Pull Request.
