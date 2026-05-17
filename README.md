@@ -88,6 +88,7 @@ python main.py
 
 Contributions are heavily encouraged! If you want to integrate new exchange sources, optimize SQLite write speeds, or implement interactive charts (Matplotlib/Plotly integration), feel free to fork the repository, open an issue, or submit a Pull Request.
 
+# 🚨 PROJECT LOOKING FOR LEAD MAINTAINERS
 I am no longer actively developing this project due to time constraints, but I believe it has huge potential. If you want to take over, implement async architecture, or drive the roadmap, please open an issue or drop a comment. I am ready to grant full maintainer/admin access to active contributors!
 
 ---
