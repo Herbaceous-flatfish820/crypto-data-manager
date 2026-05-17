@@ -18,17 +18,17 @@ An advanced, desktop-based local data warehouse designed to **download, store, m
 ### 1. Main Control Panel & Database Summary
 Manage your parameters, review exactly what ranges are already saved in your local database, and initiate incremental data updates in one click.
 
-![Main Control Panel](path_to_image/main_window.png)
+![Main Control Panel](screenshots/main_window.png)
 
 ### 2. High-Density Data Viewer
 Inspect every single downloaded candle along with all 20+ derivative trading metrics simultaneously.
 
-![Data Viewer Window](path_to_image/data_viewer.png)
+![Data Viewer Window](screenshots/data_viewer.png)
 
 ### 3. Customized Data Export Window
 Tailor your dataset exports by selecting precise asset ticker pairs, custom date ranges, and filtering out columns you don't need.
 
-![Export Window](path_to_image/export_window.png)
+![Export Window](screenshots/export_window.png)
 
 ---
 
